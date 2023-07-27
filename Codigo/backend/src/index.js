@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const municipio = require('./rutas/municipio');
 const departamento = require('./rutas/departamento');
+const proyecto = require('./rutas/proyecto');
 
 const PORT = 3001;
-
-app.use(express.json());
+var cors = require('cors');
+app.use(cors());
 
 // Ruta de bienvenida
 app.get('/', (req, res) => {
@@ -13,8 +14,10 @@ app.get('/', (req, res) => {
 });
 
 // Utiliza las rutas de cursos
+app.use(express.json());
 app.use(municipio);
 app.use(departamento);
+app.use(proyecto);
 
 // Manejo de rutas no encontradas
 app.use((req, res) => {
