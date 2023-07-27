@@ -3,16 +3,19 @@ const router = express.Router();
 const Proyecto = require("../modelos/proyecto"); 
 
 router.post("/proyecto", async (req, res) => {
-  const { codigoDepartamento, codigoMunicipio, nombre, descripcion, presupuestoTotal, gastos } = req.body;
+  const { codigoProyecto, codigoDepartamento, nombre, descripcion, fechaInicio, fechaFin, presupuesto, riesgos, recursos } = req.body;
   
   try {
     const proyecto = await Proyecto.create({
+      proy_codigo: codigoProyecto,
       dep_codigo: codigoDepartamento,
-      mun_codigo: codigoMunicipio,
-      dep_nombre: nombre,
-      dep_descripcion: descripcion,
-      dep_presupuesto_total: presupuestoTotal,
-      dep_gastos: gastos
+      proy_nombre: nombre,
+      proy_descripcion: descripcion,
+      pro_fechaInicio: fechaInicio,
+      proy_fechaFin: fechaFin,
+      proy_prespuesto: presupuesto,
+      proy_riesgos: riesgos,
+      proy_recursos: recursos
     });
 
     res.json({
