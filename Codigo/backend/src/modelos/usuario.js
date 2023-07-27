@@ -4,7 +4,8 @@ const db = require('../db');
 const Usuario = db.define('Usuario', {
     usu_codigo: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     },
     dep_codigo: {
         type: DataTypes.STRING,
@@ -39,7 +40,8 @@ const Usuario = db.define('Usuario', {
         allowNull: true
     }
 }, {
-  tableName: 'USUARIO'
+  tableName: 'USUARIO',
+  timestamps: false
 });
 
 module.exports = Usuario;

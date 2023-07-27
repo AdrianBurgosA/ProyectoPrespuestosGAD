@@ -1,35 +1,31 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db');
 
-const Departamento = db.define('Departamento', {
-    dep_codigo: {
+const Municipio = db.define('Municipio', {
+    mun_codigo: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
     },
-    mun_codigo: {
+    mun_nombre: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    dep_nombre: {
+    mun_descripcion: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    dep_descripcion: {
+    mun_ubicacion: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    dep_presupuesto_total: {
-        type: DataTypes.FLOAT,
-        allowNull: true
-    },
-    dep_gastos: {
+    mun_presupuesto: {
         type: DataTypes.FLOAT,
         allowNull: true
     }
 }, {
-  tableName: 'DEPARTAMENTO',
+  tableName: 'MUNICIPIO',
   timestamps: false
 });
 
-module.exports = Departamento;
+module.exports = Municipio;

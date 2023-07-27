@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Course = require("../models/Course"); // Ajusta la ruta al modelo "Course" de Sequelize
+const Departamento = require("../modelos/Departamento"); 
 
-// Ruta para crear un nuevo curso
 router.post("/departamento", async (req, res) => {
   const { codigoDepartamento, codigoMunicipio, nombre, descripcion, presupuestoTotal, gastos } = req.body;
   
   try {
-    const departamento = await Course.create({
+    const departamento = await Departamento.create({
       dep_codigo: codigoDepartamento,
       mun_codigo: codigoMunicipio,
       dep_nombre: nombre,
@@ -31,25 +30,26 @@ router.post("/departamento", async (req, res) => {
     });
   }
 });
-  
-// Ruta para obtener todos los cursos
-router.get("/courses", async (req, res) => {
+
+
+router.get("/departamentos", async (req, res) => {
   try {
-    const courses = await Course.findAll();
-    res.json(courses);
+    const departamentos = await Departamento.findAll();
+    res.json(Departamentos);
+
   } catch (error) {
-    console.error('Error al obtener los cursos:', error);
+    console.error('Error al obtener los departamentos:', error);
     res.status(500).json({ message: error.message });
   }
 });
 
 // Ruta para obtener un curso por su ID
-router.get("/courses/:id", async (req, res) => {
+router.get("/Departamentos/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const course = await Course.findByPk(id);
-    res.json(course);
+    const Departamento = await Departamento.findByPk(id);
+    res.json(Departamento);
   } catch (error) {
     console.error('Error al obtener el curso:', error);
     res.status(500).json({ message: error.message });
@@ -57,12 +57,12 @@ router.get("/courses/:id", async (req, res) => {
 });
 
 // Ruta para obtener cursos por nivel
-router.get("/coursesByLevel/:level", async (req, res) => {
+router.get("/DepartamentosByLevel/:level", async (req, res) => {
   const { level } = req.params;
 
   try {
-    const courses = await Course.findAll({ where: { level: level } });
-    res.json(courses);
+    const Departamentos = await Departamento.findAll({ where: { level: level } });
+    res.json(Departamentos);
   } catch (error) {
     console.error('Error al obtener los cursos por nivel:', error);
     res.status(500).json({ message: error.message });
@@ -70,10 +70,10 @@ router.get("/coursesByLevel/:level", async (req, res) => {
 });
 
 // Ruta para obtener cursos sin año escolar
-router.get("/coursesWithoutSchoolYear", async (req, res) => {
+router.get("/DepartamentosWithoutSchoolYear", async (req, res) => {
   try {
-    const courses = await Course.findAll({ where: { idSchoolYear: null } });
-    res.json(courses);
+    const Departamentos = await Departamento.findAll({ where: { idSchoolYear: null } });
+    res.json(Departamentos);
   } catch (error) {
     console.error('Error al obtener los cursos sin año escolar:', error);
     res.status(500).json({ message: error.message });
@@ -81,20 +81,20 @@ router.get("/coursesWithoutSchoolYear", async (req, res) => {
 });
 
 // Ruta para actualizar un curso
-router.put("/courses/:id", async (req, res) => {
+router.put("/Departamentos/:id", async (req, res) => {
   const { id } = req.params;
   const { idSchoolYear } = req.body;
 
   try {
-    const course = await Course.findByPk(id);
-    if (!course) {
+    const Departamento = await Departamento.findByPk(id);
+    if (!Departamento) {
       return res.status(404).json({ error: 'Curso no encontrado' });
     }
 
-    course.idSchoolYear = idSchoolYear;
-    await course.save();
+    Departamento.idSchoolYear = idSchoolYear;
+    await Departamento.save();
 
-    res.json(course);
+    res.json(Departamento);
   } catch (error) {
     console.error('Error al actualizar el curso:', error);
     res.status(500).json({ message: error.message });
@@ -102,16 +102,16 @@ router.put("/courses/:id", async (req, res) => {
 });
 
 // Ruta para eliminar un curso
-router.delete("/courses/:id", async (req, res) => {
+router.delete("/Departamentos/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const course = await Course.findByPk(id);
-    if (!course) {
+    const Departamento = await Departamento.findByPk(id);
+    if (!Departamento) {
       return res.status(404).json({ error: 'Curso no encontrado' });
     }
 
-    await course.destroy();
+    await Departamento.destroy();
 
     res.json({ message: 'Curso eliminado correctamente' });
   } catch (error) {
