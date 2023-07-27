@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Departamento = require("../modelos/Departamento"); 
+const Proyecto = require("../modelos/proyecto"); 
 
-router.post("/departamento", async (req, res) => {
+router.post("/proyecto", async (req, res) => {
   const { codigoDepartamento, codigoMunicipio, nombre, descripcion, presupuestoTotal, gastos } = req.body;
   
   try {
-    const departamento = await Departamento.create({
+    const proyecto = await Proyecto.create({
       dep_codigo: codigoDepartamento,
       mun_codigo: codigoMunicipio,
       dep_nombre: nombre,
@@ -17,28 +17,28 @@ router.post("/departamento", async (req, res) => {
 
     res.json({
       result: true,
-      message: "Se creo el departamento correctamente.",
-      requestDB: departamento
+      message: "Se creo el proyecto correctamente.",
+      requestDB: proyecto
     });
 
   } catch (error) {
-    console.error('Error al crear un departamento:', error);
+    console.error('Error al crear el proyecto:', error);
     res.status(500).json({
       result: false,
-      message: "No se pudieron registrar los datos del departamento.",
+      message: "No se pudieron registrar los datos del proyecto.",
       error: error.message
     });
   }
 });
 
 
-router.get("/departamentos", async (req, res) => {
+router.get("/proyectos", async (req, res) => {
   try {
-    const departamentos = await Departamento.findAll();
-    res.json(departamentos);
+    const proyectos = await Proyecto.findAll();
+    res.json(proyectos);
 
   } catch (error) {
-    console.error('Error al obtener los departamentos:', error);
+    console.error('Error al obtener los proyectos:', error);
     res.status(500).json({ message: error.message });
   }
 });
